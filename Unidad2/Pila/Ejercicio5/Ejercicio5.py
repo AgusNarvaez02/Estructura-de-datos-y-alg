@@ -1,5 +1,3 @@
-
-
 class Torre:
     __lista=None
 
@@ -31,7 +29,7 @@ class Torre:
 
     def TamañoDisco(self, i):
         if len(self.__lista)<i:
-            return ''
+            return ' '
 
         return str(self.__lista[i-1])
 
