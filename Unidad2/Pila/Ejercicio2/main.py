@@ -1,23 +1,32 @@
-class Pila:
-    __lista=None
+import numpy as np
 
-    def __init__(self):
-        self.__lista= []
+class Pila:
+    __arreglo=None
+    __tope=0
+    __tamaño: int
+
+    def __init__(self, tamaño: int=20):
+        self.__arreglo= np.empty(tamaño, dtype=int)
+        self.__tope= 0
+        self.__tamaño=tamaño
+
 
     def insertar(self, dato):
-        self.__lista.append(dato)
+        if self.__tope== self.__tamaño:
+            raise Exception('Pila llena')
 
+        self.__arreglo[self.__tope]= dato
+        self.__tope+=1
 
-    def tamaño(self):
-        return len(self.__lista)
+    def getTam(self):
+        return self.__tope
 
     def eliminarvalor(self):
-        if len(self.__lista)==0:
-            raise Exception('Lista vacia')
+        if self.__tope==0:
+            raise Exception('Pila vacia')
 
-        valor = self.__lista.pop()
-        return valor
-
+        self.__tope-=1
+        return self.__arreglo[self.__tope]
 
 def conversion(num):
     pila=Pila()
@@ -26,7 +35,7 @@ def conversion(num):
         pila.insertar(resto)
         num= num//2
     string=''
-    while pila.tamaño()!=0:
+    while pila.getTam()!=0:
         val=pila.eliminarvalor()
         string+=str(val)
     print(string)
