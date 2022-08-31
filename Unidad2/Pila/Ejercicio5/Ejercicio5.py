@@ -1,36 +1,41 @@
+import numpy as np
+
 class Torre:
-    __lista=None
+    __arreglo=None
+    __tope=0
+    __tamaño: int
 
-    def __init__(self):
-        self.__lista= []
-
+    def __init__(self, tamaño: int=3):
+        self.__arreglo= np.empty(tamaño, dtype=int)
+        self.__tope= 0
+        self.__tamaño=tamaño
 
     def vacio(self):
-        return len(self.__lista)==0
+        return self.__tope==0
 
     def añadirDisco(self, elemento):
-        if self.vacio() or elemento<= self.__lista[-1]:
+        if self.vacio() or elemento<= self.__arreglo[self.__tope-1]:
             print('ingresa al if')
-            self.__lista.append(elemento)
+            self.__arreglo[self.__tope]=elemento
+            self.__tope+=1
         else:
             print('No puede colocar un disco mas grande encima de uno mas pequeño ')
             raise Exception('No puede colocar un disco mas grande encima de uno mas pequeño ')
 
     def tamaño(self):
-        return len(self.__lista)
+        return self.__tope
 
 
     def eliminarvalor(self):
-        if len(self.__lista)==0:
-            raise Exception('Lista vacia')
+        if self.__tope==0:
+            raise Exception('Pila vacia')
 
-        valor = self.__lista.pop()
-        return valor
+        self.__tope-=1
+        return self.__arreglo[self.__tope]
 
     def TamañoDisco(self, i):
-        if len(self.__lista)<i:
+        if self.__tope<i:
             return ' '
 
-        return str(self.__lista[i-1])
-
+        return str(self.__arreglo[i-1])
 
