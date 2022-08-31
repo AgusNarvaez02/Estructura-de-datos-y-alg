@@ -1,22 +1,39 @@
+import numpy as np
 class Cola:
-    __lista = None
+    __arreglo=None
+    __tamaño: int
+    __tope=0
 
-    def __init__(self):
-        self.__lista = []
+    def __init__(self, tamaño: int= 100):
+        self.__arreglo=np.empty(tamaño, dtype=Cliente)
+        self.__tamaño= tamaño
+        self.__tope= 0
+
 
     def insertar(self, dato):
-        self.__lista.append(dato)
+        if self.__tope== self.__tamaño:
+            raise Exception('Cola llena')
+
+        self.__arreglo[self.__tope]= dato
+        self.__tope+=1
 
     def tamaño(self):
-        return len(self.__lista)
-
-    def eliminar(self):
-        if len(self.__lista) == 0:
-            raise Exception('Lista vacia')
-        return self.__lista.pop(0)
+        return self.__tope
 
     def vacia(self):
-        return len(self.__lista)==0
+        return self.__tope==0
+
+    def eliminar(self):
+        if self.__tope==0:
+            raise Exception('Cola vacia')
+
+        valor=self.__arreglo[0]
+        for i in range(1, self.__tope):
+            self.__arreglo[i-1]= self.__arreglo[i]
+
+        self.__tope-=1
+
+        return valor
 
 
 class Cliente:
@@ -77,6 +94,7 @@ if __name__ == '__main__':
     prom= tiempodeEspera/clientes
 
     print('EL tiempo de espera promedio es: {:.2f} minutos'.format((prom)))
+
 
 
 
