@@ -4,12 +4,6 @@ import networkx as nx
 
 import matplotlib.pyplot as plt
 
-"""Defina TAD Digrafo e implemente todas las operaciones vistas en teoría y determine la complejidad de cada una de ellas.
-a.	Representación secuencial. 
-b.	Representación encadenada.
-"""
-
-
 class Registro:
     def __init__(self, nodo, conocido, distancia, camino):
         self.nodo = nodo
@@ -112,14 +106,12 @@ class DigrafoSec:
         Tabla[verticeOrigen].distancia = 0
 
         for i in range(len(self.__vertices)):
-            # Buscar el vertice con menor distancia y que no haya sido visitado
             v = None
             for vertice in self.__vertices:
                 if not Tabla[vertice].conocido:
                     if v == None or Tabla[vertice].distancia < Tabla[v].distancia:
                         v = vertice
-            Tabla[v].conocido = True
-            # Actualizar los registros de los adyacentes
+           
             for w in self.adyacentes(v):
                 if Tabla[v].distancia + self.getPeso(v, w) < Tabla[w].distancia:
                     Tabla[w].distancia = Tabla[v].distancia + self.getPeso(v, w)
